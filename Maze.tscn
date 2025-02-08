@@ -1,9 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://bb5e4oatdwlk4"]
+[gd_scene load_steps=7 format=3 uid="uid://bb5e4oatdwlk4"]
 
 [ext_resource type="AudioStream" uid="uid://b3ijksaq2rpv7" path="res://Soundtrack.mp3" id="1_begjm"]
-[ext_resource type="Shader" path="res://shaders/modular/normal_shader.gdshader" id="3_legy6"]
-[ext_resource type="Shader" path="res://shaders/modular/depth_shader.gdshader" id="4_6epgm"]
-[ext_resource type="Shader" path="res://shaders/modular/opaque_color_shader.gdshader" id="5_yo60t"]
 [ext_resource type="PackedScene" uid="uid://qqw3at5rndst" path="res://objects/Player.tscn" id="6_l8ony"]
 [ext_resource type="Script" path="res://Scripts/generator.gd" id="6_xkupr"]
 [ext_resource type="PackedScene" uid="uid://bkrgeh643sj" path="res://MazeMap.tscn" id="7_aftxg"]
@@ -16,25 +13,6 @@ ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.5
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_digkk"]
-render_priority = 0
-shader = ExtResource("3_legy6")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_he7g1"]
-render_priority = 0
-next_pass = SubResource("ShaderMaterial_digkk")
-shader = ExtResource("4_6epgm")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p8bk1"]
-render_priority = 0
-next_pass = SubResource("ShaderMaterial_he7g1")
-shader = ExtResource("5_yo60t")
-shader_parameter/color = Color(1, 1, 1, 1)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_el30q"]
-material = SubResource("ShaderMaterial_p8bk1")
-size = Vector2(100, 100)
-
 [node name="ModularTestScene" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -44,13 +22,9 @@ environment = SubResource("Environment_4jik7")
 stream = ExtResource("1_begjm")
 parameters/looping = true
 
-[node name="PlaneMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.999959, 0, 0.00900578, 0, 1, 0, -0.00900578, 0, 0.999959, 0, 0, 0)
-layers = 15
-mesh = SubResource("PlaneMesh_el30q")
-
 [node name="Player" parent="." instance=ExtResource("6_l8ony")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+speed = 10
 
 [node name="Generator" type="Node3D" parent="."]
 script = ExtResource("6_xkupr")
