@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bb5e4oatdwlk4"]
+[gd_scene load_steps=16 format=3 uid="uid://bb5e4oatdwlk4"]
 
 [ext_resource type="AudioStream" uid="uid://b3ijksaq2rpv7" path="res://Soundtrack.mp3" id="1_begjm"]
 [ext_resource type="Script" path="res://Scripts/background_noise.gd" id="2_hosgw"]
@@ -9,6 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://bkrgeh643sj" path="res://MazeMap.tscn" id="7_aftxg"]
 [ext_resource type="VideoStream" path="res://introTest.ogv" id="8_520w4"]
 [ext_resource type="PackedScene" uid="uid://batixvdd7yb52" path="res://Cell.tscn" id="8_ueq20"]
+[ext_resource type="Script" path="res://Scripts/cutscene.gd" id="10_7w4f2"]
+[ext_resource type="Script" path="res://Scripts/texture_rect.gd" id="12_38h7f"]
+[ext_resource type="Texture2D" uid="uid://cvapywoucv8hg" path="res://Resources/TitleScreen.png" id="12_o8h4k"]
 
 [sub_resource type="Environment" id="Environment_4jik7"]
 background_mode = 1
@@ -58,7 +61,18 @@ shape = SubResource("ConcavePolygonShape3D_8m671")
 offset_right = 40.0
 offset_bottom = 40.0
 stream = ExtResource("8_520w4")
-autoplay = true
+script = ExtResource("10_7w4f2")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+top_level = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_o8h4k")
+script = ExtResource("12_38h7f")
 
 [connection signal="finished" from="Cutscene" to="BackgroundNoise" method="_on_cutscene_finished"]
 [connection signal="finished" from="Cutscene" to="Player" method="_on_cutscene_finished"]
+[connection signal="gui_input" from="TextureRect" to="Cutscene" method="_on_texture_rect_gui_input"]
