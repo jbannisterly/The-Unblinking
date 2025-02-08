@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://batixvdd7yb52"]
+[gd_scene load_steps=11 format=3 uid="uid://batixvdd7yb52"]
 
 [ext_resource type="Script" path="res://Scripts/cell.gd" id="1_fmi2t"]
 [ext_resource type="Shader" path="res://shaders/monolithic/opaque_shader.gdshader" id="2_vckyi"]
@@ -26,6 +26,15 @@ size = Vector3(0.5, 200, 11)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cyxjf"]
 size = Vector3(0.5, 200, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ybmgt"]
+render_priority = 0
+shader = ExtResource("2_vckyi")
+shader_parameter/color = Color(1, 1, 1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ogiou"]
+material = SubResource("ShaderMaterial_ybmgt")
+size = Vector2(10, 10)
 
 [node name="Cell" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0043931, 0.00492263, -0.000743151)
@@ -81,3 +90,8 @@ metadata/_edit_lock_ = true
 
 [node name="WestWallCollider" type="CollisionShape3D" parent="WestWall"]
 shape = SubResource("BoxShape3D_cyxjf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 15
+mesh = SubResource("PlaneMesh_ogiou")
+skeleton = NodePath("../EastWall/MeshInstance3D")
