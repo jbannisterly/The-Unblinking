@@ -59,3 +59,6 @@ func _physics_process(delta):
 	var prevY = position.y;
 	move_and_slide();
 	position.y = prevY;
+	
+func increase_score():
+	print("Increase score");

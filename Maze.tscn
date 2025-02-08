@@ -22,7 +22,7 @@ environment = SubResource("Environment_4jik7")
 stream = ExtResource("1_begjm")
 parameters/looping = true
 
-[node name="Player" parent="." instance=ExtResource("6_l8ony")]
+[node name="Player" parent="." groups=["Player"] instance=ExtResource("6_l8ony")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 speed = 10
 

@@ -11,7 +11,6 @@ extends Node3D
 
 func update_faces(tiles):
 	var gridPosition = Vector2i(position.x / 10., position.z / 10.);
-	print(gridPosition);
 	if tiles.has(gridPosition + Vector2i.RIGHT):
 		eastWall.hide();
 		eastWallCollider.disabled = true;
@@ -19,7 +18,6 @@ func update_faces(tiles):
 		westWall.hide();
 		westWallCollider.disabled = true;
 	if tiles.has(gridPosition + Vector2i.DOWN):
-		print("Remove north wall");
 		northWall.hide();
 		northWallCollider.disabled = true;
 	if tiles.has(gridPosition + Vector2i.UP):

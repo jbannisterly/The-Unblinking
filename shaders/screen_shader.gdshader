@@ -69,14 +69,14 @@ void fragment()
 	}
 
 	float modified_depth = depth * pow(1. - depth, 0.1);
-	float hue = pow(clamp(modified_depth, 0.2, 1.), 2.);
+	float hue = clamp(pow(modified_depth, 2.), 0.01, 1.);
 	float value = pow(modified_depth, 2.);
 	vec3 colour = hsv2rgb_smooth(vec3(hue, 1., value));
-
 
  	highp float fragmentColor = mix(0.05, 0.35, 1.0 - SCREEN_UV.y);
 	colour += mix(-NOISE_GRANULARITY, NOISE_GRANULARITY, random(SCREEN_UV));
 
+if (depth_xy.y == 0.) {
 	if (depth > 0.) {
 		ALBEDO = colour;
 		//ALBEDO = vec3(depth);
@@ -84,6 +84,9 @@ void fragment()
 		//ALBEDO = min(mix(c1, c2, depth) * pow(1. - depth, 0.1), vec3(1));
 	} else {
 		ALBEDO = vec3(0.);
+	}
+	} else if (depth_xy.y == 1.) {
+		ALBEDO=vec3(1.);
 	}
 	//ALBEDO = vec3(depth);
 	//ALBEDO = vec3(normal + 1.) / 2.;

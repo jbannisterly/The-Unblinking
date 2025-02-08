@@ -1,40 +1,49 @@
-[gd_scene load_steps=11 format=3 uid="uid://batixvdd7yb52"]
+[gd_scene load_steps=17 format=3 uid="uid://batixvdd7yb52"]
 
 [ext_resource type="Script" path="res://Scripts/cell.gd" id="1_fmi2t"]
-[ext_resource type="Shader" path="res://shaders/monolithic/opaque_shader.gdshader" id="2_vckyi"]
+[ext_resource type="Shader" path="res://shaders/OpaqueShader.gdshader" id="2_4yfyi"]
+[ext_resource type="Script" path="res://Scripts/Paper.gd" id="3_o3u3f"]
+[ext_resource type="Shader" path="res://shaders/Pickup.gdshader" id="3_wrsh4"]
+[ext_resource type="Script" path="res://Scripts/AddPoint.gd" id="5_s8141"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bfswe"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p4px3"]
 render_priority = 0
-shader = ExtResource("2_vckyi")
-shader_parameter/color = Color(1, 1, 1, 1)
+shader = ExtResource("2_4yfyi")
 
 [sub_resource type="BoxMesh" id="BoxMesh_jxxvl"]
-material = SubResource("ShaderMaterial_bfswe")
+material = SubResource("ShaderMaterial_p4px3")
 size = Vector3(11, 200, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f2cee"]
 size = Vector3(10, 200, 0.5)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_d86er"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l1ux2"]
 render_priority = 0
-shader = ExtResource("2_vckyi")
-shader_parameter/color = Color(1, 1, 1, 1)
+shader = ExtResource("2_4yfyi")
 
-[sub_resource type="BoxMesh" id="BoxMesh_iaac4"]
-material = SubResource("ShaderMaterial_d86er")
+[sub_resource type="BoxMesh" id="BoxMesh_wseyo"]
+material = SubResource("ShaderMaterial_l1ux2")
 size = Vector3(0.5, 200, 11)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_cyxjf"]
-size = Vector3(0.5, 200, 10)
+[sub_resource type="BoxShape3D" id="BoxShape3D_cv718"]
+size = Vector3(0.5, 200, 11)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ybmgt"]
 render_priority = 0
-shader = ExtResource("2_vckyi")
-shader_parameter/color = Color(1, 1, 1, 1)
+shader = ExtResource("2_4yfyi")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ogiou"]
 material = SubResource("ShaderMaterial_ybmgt")
 size = Vector2(10, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_krb8a"]
+render_priority = 0
+shader = ExtResource("3_wrsh4")
+
+[sub_resource type="BoxMesh" id="BoxMesh_dpiqd"]
+material = SubResource("ShaderMaterial_krb8a")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k0jfb"]
 
 [node name="Cell" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0043931, 0.00492263, -0.000743151)
@@ -47,24 +56,9 @@ metadata/_edit_lock_ = true
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NorthWall"]
 layers = 15
 mesh = SubResource("BoxMesh_jxxvl")
-skeleton = NodePath("../..")
-metadata/_edit_lock_ = true
 
 [node name="NorthWallCollider" type="CollisionShape3D" parent="NorthWall"]
 shape = SubResource("BoxShape3D_f2cee")
-
-[node name="EastWall" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75, 100, 0)
-metadata/_edit_lock_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="EastWall"]
-layers = 15
-mesh = SubResource("BoxMesh_iaac4")
-skeleton = NodePath("../..")
-metadata/_edit_lock_ = true
-
-[node name="EastWallCollider" type="CollisionShape3D" parent="EastWall"]
-shape = SubResource("BoxShape3D_cyxjf")
 
 [node name="SouthWall" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, -4.75)
@@ -73,7 +67,6 @@ metadata/_edit_lock_ = true
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SouthWall"]
 layers = 15
 mesh = SubResource("BoxMesh_jxxvl")
-skeleton = NodePath("../..")
 
 [node name="SouthWallCollider" type="CollisionShape3D" parent="SouthWall"]
 shape = SubResource("BoxShape3D_f2cee")
@@ -84,14 +77,37 @@ metadata/_edit_lock_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WestWall"]
 layers = 15
-mesh = SubResource("BoxMesh_iaac4")
-skeleton = NodePath("../..")
-metadata/_edit_lock_ = true
+mesh = SubResource("BoxMesh_wseyo")
+skeleton = NodePath("")
 
 [node name="WestWallCollider" type="CollisionShape3D" parent="WestWall"]
-shape = SubResource("BoxShape3D_cyxjf")
+shape = SubResource("BoxShape3D_cv718")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="EastWall" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75, 100, 0)
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="EastWall"]
+layers = 15
+mesh = SubResource("BoxMesh_wseyo")
+skeleton = NodePath("")
+
+[node name="EastWallCollider" type="CollisionShape3D" parent="EastWall"]
+shape = SubResource("BoxShape3D_cv718")
+
+[node name="GroundPlane" type="MeshInstance3D" parent="."]
 layers = 15
 mesh = SubResource("PlaneMesh_ogiou")
-skeleton = NodePath("../EastWall/MeshInstance3D")
+
+[node name="Point" type="Area3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0)
+script = ExtResource("3_o3u3f")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Point"]
+layers = 15
+mesh = SubResource("BoxMesh_dpiqd")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Point" groups=["Trigger"]]
+shape = SubResource("BoxShape3D_k0jfb")
+script = ExtResource("5_s8141")
