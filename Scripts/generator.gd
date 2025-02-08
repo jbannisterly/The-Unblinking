@@ -16,7 +16,6 @@ func generate_map():
 	for tile in used_tiles:
 		var cell = Cell.instantiate() as Node3D;
 		add_child(cell);
-		#cell.tan
 		cell.position = Vector3(tile.x * GRID_SIZE, 0, tile.y * GRID_SIZE);
 		cells.append(cell);
 	

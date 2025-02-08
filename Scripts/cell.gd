@@ -1,20 +1,30 @@
 extends Node3D
 
 @onready var northWall = $NorthWall; 
+@onready var northWallCollider = $NorthWall/NorthWallCollider;
 @onready var eastWall = $EastWall; 
+@onready var eastWallCollider = $EastWall/EastWallCollider;
 @onready var southWall = $SouthWall; 
+@onready var southWallCollider = $SouthWall/SouthWallCollider;
 @onready var westWall = $WestWall; 
+@onready var westWallCollider = $WestWall/WestWallCollider;
 
 func update_faces(tiles):
-	var gridPosition = Vector2(position.x / 10., position.z / 10.);
-	#if tiles.has(gridPosition + Vector2.RIGHT):
-		#eastWall.hide();
-	#if tiles.has(gridPosition + Vector2.LEFT):
-		#westWall.hide();
-	#if tiles.has(gridPosition + Vector2.UP):
-		#northWall.hide();
-	#if tiles.has(gridPosition + Vector2.DOWN):
-		#southWall.hide();
+	var gridPosition = Vector2i(position.x / 10., position.z / 10.);
+	print(gridPosition);
+	if tiles.has(gridPosition + Vector2i.RIGHT):
+		eastWall.hide();
+		eastWallCollider.disabled = true;
+	if tiles.has(gridPosition + Vector2i.LEFT):
+		westWall.hide();
+		westWallCollider.disabled = true;
+	if tiles.has(gridPosition + Vector2i.DOWN):
+		print("Remove north wall");
+		northWall.hide();
+		northWallCollider.disabled = true;
+	if tiles.has(gridPosition + Vector2i.UP):
+		southWall.hide();
+		southWallCollider.disabled = true;
 	pass
 	
 # Called when the node enters the scene tree for the first time.
