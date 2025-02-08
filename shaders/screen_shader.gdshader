@@ -31,9 +31,22 @@ uniform sampler2D depth_buffer : filter_nearest;
 /** This texture holds normal info from the fourth visual layer. */
 uniform sampler2D normal_buffer : filter_nearest;
 
+const highp float NOISE_GRANULARITY = .8/255.0;
 
+//  Function from Iñigo Quiles
+//  https://www.shadertoy.com/view/MsS3Wc
+vec3 hsv2rgb_smooth( in vec3 c )
+{
+    vec3 rgb = clamp( abs(mod(c.x*6.0+vec3(0.0,4.0,2.0),6.0)-3.0)-1.0, 0.0, 1.0 );
 
-// FUNCTIONS
+	rgb = rgb*rgb*(3.0-2.0*rgb); // cubic smoothing	
+
+	return c.z * mix( vec3(1.0), rgb, c.y);
+}
+
+highp float random(highp vec2 coords) {
+   return fract(sin(dot(coords.xy, vec2(12.9898,78.233))) * 43758.5453);
+}
 
 // Called once for each vertex.
 void vertex()
@@ -54,14 +67,21 @@ void fragment()
 	if (isinf(depth) || isnan(depth)) {
 		depth = 0.;
 	}
-	//float depth = depth_xy.x + depth_xy.y * 256.;
+	
+	float modified_depth = depth * pow(1. - depth, 0.1);
+	float hue = pow(clamp(modified_depth, 0.2, 1.), 2.);
+	float value = pow(modified_depth, 2.);
+	vec3 colour = hsv2rgb_smooth(vec3(hue, 1., value));
+	
 
-	vec3 c1 = vec3(.1, 0., 0.);
-	vec3 c2 = vec3(0., .1, 0.);
+ 	highp float fragmentColor = mix(0.05, 0.35, 1.0 - SCREEN_UV.y);
+	colour += mix(-NOISE_GRANULARITY, NOISE_GRANULARITY, random(SCREEN_UV));
 	
 	if (depth > 0.) {
+		ALBEDO = colour;
 		//ALBEDO = vec3(depth);
-		ALBEDO = min(mix(c1, c2, depth) * pow(1. - depth, 0.1), vec3(1));
+		//ALBEDO = vec4(dither(colour2;
+		//ALBEDO = min(mix(c1, c2, depth) * pow(1. - depth, 0.1), vec3(1));
 	} else {
 		ALBEDO = vec3(0.);
 	}
