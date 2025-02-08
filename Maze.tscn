@@ -1,13 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://bb5e4oatdwlk4"]
+[gd_scene load_steps=18 format=3 uid="uid://bb5e4oatdwlk4"]
 
 [ext_resource type="AudioStream" uid="uid://b3ijksaq2rpv7" path="res://Soundtrack.mp3" id="1_begjm"]
+[ext_resource type="Shader" path="res://shaders/monolithic/opaque_shader.gdshader" id="2_cgyg5"]
+[ext_resource type="ArrayMesh" uid="uid://di5vcei7gf3ud" path="res://Intel.obj" id="3_dulne"]
 [ext_resource type="Shader" path="res://shaders/modular/normal_shader.gdshader" id="3_legy6"]
 [ext_resource type="Shader" path="res://shaders/modular/depth_shader.gdshader" id="4_6epgm"]
 [ext_resource type="Shader" path="res://shaders/modular/opaque_color_shader.gdshader" id="5_yo60t"]
 [ext_resource type="PackedScene" uid="uid://qqw3at5rndst" path="res://objects/Player.tscn" id="6_l8ony"]
 [ext_resource type="Script" path="res://Scripts/generator.gd" id="6_xkupr"]
-[ext_resource type="PackedScene" uid="uid://bkrgeh643sj" path="res://MazeMap.tscn" id="7_aftxg"]
 [ext_resource type="PackedScene" uid="uid://batixvdd7yb52" path="res://Cell.tscn" id="8_ueq20"]
+[ext_resource type="PackedScene" uid="uid://djens56mqtof2" path="res://TestMap.tscn" id="9_bset0"]
 
 [sub_resource type="Environment" id="Environment_4jik7"]
 background_mode = 1
@@ -15,6 +17,14 @@ background_color = Color(0.501961, 0.501961, 0.501961, 1)
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dkdxb"]
+render_priority = 0
+shader = ExtResource("2_cgyg5")
+shader_parameter/color = Color(1, 1, 1, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_bl4kc"]
+data = PackedVector3Array(-26.2641, 0.0099, 13.8537, -26.2641, 4.3052, 13.8537, -26.2641, 0.0099, -24.0908, -26.2641, 0.0099, -24.0908, -26.2641, 4.3052, 13.8537, -26.2641, 4.3052, -24.0908, -26.2641, 4.3052, 13.8537, -26.2641, 0.0099, 13.8537, -16.1188, 4.3052, 13.8537, -16.1188, 4.3052, 13.8537, -26.2641, 0.0099, 13.8537, -16.1188, 0.0099, 13.8537, -16.1188, 4.3052, 13.8537, -16.1188, 0.0099, 13.8537, -16.1188, 4.3052, 6.0497, -16.1188, 4.3052, 6.0497, -16.1188, 0.0099, 13.8537, -16.1188, 0.0099, 6.0497, -26.2641, 0.0099, -24.0908, -26.2641, 4.3052, -24.0908, -16.1647, 0.0099, -24.0908, -16.1647, 0.0099, -24.0908, -26.2641, 4.3052, -24.0908, -16.1647, 4.3052, -24.0908, -16.1647, 0.0099, -24.0908, -16.1647, 4.3052, -24.0908, -16.1647, 0.0099, -15.6441, -16.1647, 0.0099, -15.6441, -16.1647, 4.3052, -24.0908, -16.1647, 4.3052, -15.6441, -16.1647, 0.0099, -12.62, -16.1647, 4.3052, -12.62, -16.1647, 0.0099, -6.5848, -16.1647, 0.0099, -6.5848, -16.1647, 4.3052, -12.62, -16.1647, 4.3052, -6.5848, -16.1647, 0.0099, -6.5848, -16.1647, 4.3052, -6.5848, -22.061, 0.0099, -6.5848, -22.061, 0.0099, -6.5848, -16.1647, 4.3052, -6.5848, -22.061, 4.3052, -6.5848, -22.061, 0.0099, -6.5848, -22.061, 4.3052, -6.5848, -22.061, 0.0099, 3.7474, -22.061, 0.0099, 3.7474, -22.061, 4.3052, -6.5848, -22.061, 4.3052, 3.7474, -22.061, 0.0099, 3.7474, -22.061, 4.3052, 3.7474, -16.0028, 0.0099, 3.7474, -16.0028, 0.0099, 3.7474, -22.061, 4.3052, 3.7474, -16.0028, 4.3052, 3.7474, -11.1651, 0.1017, 10.3289, -15.7818, 0.1017, 10.3289, -11.1651, 4.2593, 10.3289, -11.1651, 4.2593, 10.3289, -15.7818, 0.1017, 10.3289, -15.7818, 4.2593, 10.3289, -11.1651, 0.1017, 6.6657, -13.1841, 0.1017, 6.6657, -11.1651, 4.2593, 6.6657, -11.1651, 4.2593, 6.6657, -13.1841, 0.1017, 6.6657, -13.1841, 4.2593, 6.6657, -13.1841, 4.2593, 6.6657, -13.1841, 0.1017, 6.6657, -13.1841, 4.2593, -23.9537, -13.1841, 4.2593, -23.9537, -13.1841, 0.1017, 6.6657, -13.1841, 0.1017, -23.9537)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_digkk"]
 render_priority = 0
@@ -42,7 +52,22 @@ environment = SubResource("Environment_4jik7")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_begjm")
+autoplay = true
 parameters/looping = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(0.999959, 0, 0.00900578, 0, 1, 0, -0.00900578, 0, 0.999959, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 9.31323e-10, 0, 1, 0, -9.31323e-10, 0, 1, 19.6211, 0, -8.90592)
+layers = 15
+material_override = SubResource("ShaderMaterial_dkdxb")
+mesh = ExtResource("3_dulne")
+skeleton = NodePath("../../PlaneMesh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 2.79397e-09, 0, 1, 0, -2.79397e-09, 0, 1, 19.0112, 0, -8.99479)
+shape = SubResource("ConcavePolygonShape3D_bl4kc")
 
 [node name="PlaneMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.999959, 0, 0.00900578, 0, 1, 0, -0.00900578, 0, 0.999959, 0, 0, 0)
@@ -53,6 +78,7 @@ mesh = SubResource("PlaneMesh_el30q")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Generator" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0456333, 0.0449228, 0.000877857)
 script = ExtResource("6_xkupr")
-Map = ExtResource("7_aftxg")
+Map = ExtResource("9_bset0")
 Cell = ExtResource("8_ueq20")
