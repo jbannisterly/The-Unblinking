@@ -58,8 +58,8 @@ void fragment()
 		vec4 view = INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
   		view.xyz /= view.w;
   		float linear_depth = -view.z;
-		//EMISSION.x = linear_depth / 10.;
-		EMISSION.x = 1. - depth;
+		//EMISSION.x = 1. - clamp(1. / max(0.01, linear_depth), 0., 1.);
+		EMISSION.x = linear_depth;
 		EMISSION.y = 0.;
 		EMISSION.z = 0.;
 	}

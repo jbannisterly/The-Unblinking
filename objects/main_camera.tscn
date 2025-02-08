@@ -34,15 +34,17 @@ size = Vector2(2, 2)
 
 [node name="MainCamera" type="Camera3D"]
 cull_mask = 1
-projection = 1
 current = true
+fov = 60.0
 size = 3.0
+near = 0.001
 script = ExtResource("1_70qug")
 
 [node name="ColorCamera" type="Camera3D" parent="."]
 cull_mask = 2
-projection = 1
+fov = 60.0
 size = 3.0
+near = 0.001
 
 [node name="ColorViewport" type="SubViewport" parent="." node_paths=PackedStringArray("camera")]
 use_hdr_2d = true
@@ -53,8 +55,9 @@ camera = NodePath("../ColorCamera")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00247604, 0, 0)
 cull_mask = 4
 environment = SubResource("Environment_h2qaa")
-projection = 1
+fov = 60.0
 size = 3.0
+near = 0.001
 
 [node name="DepthViewport" type="SubViewport" parent="." node_paths=PackedStringArray("camera")]
 use_hdr_2d = true
@@ -64,8 +67,9 @@ camera = NodePath("../DepthCamera")
 [node name="NormalCamera" type="Camera3D" parent="."]
 cull_mask = 8
 environment = SubResource("Environment_ljjf5")
-projection = 1
+fov = 60.0
 size = 3.0
+near = 0.001
 
 [node name="NormalViewport" type="SubViewport" parent="." node_paths=PackedStringArray("camera")]
 use_hdr_2d = true

@@ -1,14 +1,42 @@
 extends CharacterBody3D;
 
 @export var speed = 100;
+@export var mouse_sense_x = 0.5;
+@export var mouse_sense_y = 0.5;
 
 var target_velocity = Vector3.ZERO;
 
 var move_forward: float = 0.;
 var move_side: float = 0.;
+var look_x: float = 0.;
+var look_y: float = 0.;
+var capture_mouse: bool = false;
+
+func capture():
+	if capture_mouse:
+		Input.set_mouse_mode(Input.MouseMode.MOUSE_MODE_CAPTURED);
+	else:
+		Input.set_mouse_mode(Input.MouseMode.MOUSE_MODE_VISIBLE);
+
+func toggle_capture():
+	capture_mouse = !capture_mouse;
+	capture();
+
+func _ready():
+	capture();
+
+func _input(event):
+	if event is InputEventMouseMotion:
+		look_x += -event.relative.x * mouse_sense_x;
+		look_y += -event.relative.y * mouse_sense_y;
+		
+		look_y = clamp(look_y, -89, 89);
 
 func _physics_process(delta):
 	var direction = Vector3.ZERO;
+	
+	rotation_degrees.y = look_x;
+	rotation_degrees.x = look_y;
 	
 	if Input.is_action_pressed("move_right"):
 		direction.x += 1;
@@ -18,17 +46,16 @@ func _physics_process(delta):
 		direction.z += 1;
 	if Input.is_action_pressed("move_forward"):
 		direction.z -= 1;
+	if Input.is_action_just_pressed("toggle_capture"):
+		toggle_capture();
 		
 	if direction != Vector3.ZERO:
 		direction = direction.normalized();
-		#$Pivot.basis = Basis.looking_at(directionu)
 		
-	target_velocity.x = direction.x * speed * delta;
-	target_velocity.z = direction.z * speed * delta;
+	target_velocity.x = direction.x * speed;
+	target_velocity.z = direction.z * speed;
 	
-	velocity = target_velocity;
+	velocity = basis * target_velocity;
+	var prevY = position.y;
 	move_and_slide();
-
-func handleViewAngles(delta):
-	move_forward = 0.;
-	move_side = 0.;
+	position.y = prevY;

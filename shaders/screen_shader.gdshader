@@ -49,13 +49,19 @@ void fragment()
 	vec4 color = texture(color_buffer, SCREEN_UV);
 	vec3 normal = 2.0 * texture(normal_buffer, SCREEN_UV).xyz - vec3(1.0);
 	
-	float depth = texture(depth_buffer, SCREEN_UV).x;
+	vec2 depth_xy = texture(depth_buffer, SCREEN_UV).xy;
+	float depth = 1. / depth_xy.x;
+	if (isinf(depth) || isnan(depth)) {
+		depth = 0.;
+	}
+	//float depth = depth_xy.x + depth_xy.y * 256.;
 
-	vec3 c1 = vec3(1., 0., 0.);
-	vec3 c2 = vec3(0., 1., 0.);
+	vec3 c1 = vec3(.1, 0., 0.);
+	vec3 c2 = vec3(0., .1, 0.);
 	
 	if (depth > 0.) {
-		ALBEDO = mix(c1, c2, log(depth));
+		//ALBEDO = vec3(depth);
+		ALBEDO = min(mix(c1, c2, depth) * pow(1. - depth, 0.1), vec3(1));
 	} else {
 		ALBEDO = vec3(0.);
 	}
