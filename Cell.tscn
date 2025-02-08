@@ -1,0 +1,83 @@
+[gd_scene load_steps=9 format=3 uid="uid://batixvdd7yb52"]
+
+[ext_resource type="Script" path="res://Scripts/cell.gd" id="1_fmi2t"]
+[ext_resource type="Shader" path="res://shaders/monolithic/opaque_shader.gdshader" id="2_vckyi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bfswe"]
+render_priority = 0
+shader = ExtResource("2_vckyi")
+shader_parameter/color = Color(1, 1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jxxvl"]
+material = SubResource("ShaderMaterial_bfswe")
+size = Vector3(10, 50, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f2cee"]
+size = Vector3(10, 50, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d86er"]
+render_priority = 0
+shader = ExtResource("2_vckyi")
+shader_parameter/color = Color(1, 1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_iaac4"]
+material = SubResource("ShaderMaterial_d86er")
+size = Vector3(0.5, 50, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cyxjf"]
+size = Vector3(0.5, 50, 10)
+
+[node name="Cell" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0043931, 0.00492263, -0.000743151)
+script = ExtResource("1_fmi2t")
+
+[node name="NorthWall" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.022, 25, 4.5)
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NorthWall"]
+layers = 15
+mesh = SubResource("BoxMesh_jxxvl")
+skeleton = NodePath("../..")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NorthWall"]
+shape = SubResource("BoxShape3D_f2cee")
+
+[node name="EastWall" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 25, 0)
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="EastWall"]
+layers = 15
+mesh = SubResource("BoxMesh_iaac4")
+skeleton = NodePath("../..")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EastWall"]
+shape = SubResource("BoxShape3D_cyxjf")
+
+[node name="SouthWall" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.022, 25, -4.5)
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SouthWall"]
+layers = 15
+mesh = SubResource("BoxMesh_jxxvl")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthWall"]
+shape = SubResource("BoxShape3D_f2cee")
+
+[node name="WestWall" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 25, 0)
+metadata/_edit_lock_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WestWall"]
+layers = 15
+mesh = SubResource("BoxMesh_iaac4")
+skeleton = NodePath("../..")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WestWall"]
+shape = SubResource("BoxShape3D_cyxjf")

@@ -1,11 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://bb5e4oatdwlk4"]
+[gd_scene load_steps=14 format=3 uid="uid://bb5e4oatdwlk4"]
 
 [ext_resource type="AudioStream" uid="uid://b3ijksaq2rpv7" path="res://Soundtrack.mp3" id="1_begjm"]
-[ext_resource type="Shader" path="res://shaders/monolithic/opaque_shader.gdshader" id="2_dknrw"]
 [ext_resource type="Shader" path="res://shaders/modular/normal_shader.gdshader" id="3_legy6"]
 [ext_resource type="Shader" path="res://shaders/modular/depth_shader.gdshader" id="4_6epgm"]
 [ext_resource type="Shader" path="res://shaders/modular/opaque_color_shader.gdshader" id="5_yo60t"]
 [ext_resource type="PackedScene" uid="uid://qqw3at5rndst" path="res://objects/Player.tscn" id="6_l8ony"]
+[ext_resource type="Script" path="res://Scripts/generator.gd" id="6_xkupr"]
+[ext_resource type="PackedScene" uid="uid://bkrgeh643sj" path="res://MazeMap.tscn" id="7_aftxg"]
+[ext_resource type="PackedScene" uid="uid://batixvdd7yb52" path="res://Cell.tscn" id="8_ueq20"]
 
 [sub_resource type="Environment" id="Environment_4jik7"]
 background_mode = 1
@@ -13,18 +15,6 @@ background_color = Color(0.501961, 0.501961, 0.501961, 1)
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.5
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p7t6p"]
-render_priority = 0
-shader = ExtResource("2_dknrw")
-shader_parameter/color = Color(1, 1, 1, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_lb6m7"]
-material = SubResource("ShaderMaterial_p7t6p")
-size = Vector3(50, 50, 0.5)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_bdxf8"]
-size = Vector3(50, 50, 0.5)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_digkk"]
 render_priority = 0
@@ -52,105 +42,17 @@ environment = SubResource("Environment_4jik7")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_begjm")
-autoplay = true
 parameters/looping = true
-
-[node name="Walls" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 0)
-
-[node name="Wall" type="StaticBody3D" parent="Walls"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, 0, -29)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Wall"]
-layers = 15
-mesh = SubResource("BoxMesh_lb6m7")
-skeleton = NodePath("../CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall"]
-shape = SubResource("BoxShape3D_bdxf8")
-
-[node name="Wall8" type="StaticBody3D" parent="Walls"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4, 0, -29)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Wall8"]
-layers = 15
-mesh = SubResource("BoxMesh_lb6m7")
-skeleton = NodePath("../CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall8"]
-shape = SubResource("BoxShape3D_bdxf8")
-
-[node name="Wall2" type="StaticBody3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, -4)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Wall2"]
-layers = 15
-mesh = SubResource("BoxMesh_lb6m7")
-skeleton = NodePath("../CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall2"]
-shape = SubResource("BoxShape3D_bdxf8")
-
-[node name="Wall7" type="StaticBody3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 0, -4)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Wall7"]
-layers = 15
-mesh = SubResource("BoxMesh_lb6m7")
-skeleton = NodePath("../CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall7"]
-shape = SubResource("BoxShape3D_bdxf8")
-
-[node name="Wall3" type="StaticBody3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 4)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Wall3"]
-layers = 15
-mesh = SubResource("BoxMesh_lb6m7")
-skeleton = NodePath("../CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall3"]
-shape = SubResource("BoxShape3D_bdxf8")
-
-[node name="Wall6" type="StaticBody3D" parent="Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 0, 4)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Wall6"]
-layers = 15
-mesh = SubResource("BoxMesh_lb6m7")
-skeleton = NodePath("../CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall6"]
-shape = SubResource("BoxShape3D_bdxf8")
-
-[node name="Wall4" type="StaticBody3D" parent="Walls"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, 0, 29)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Wall4"]
-layers = 15
-mesh = SubResource("BoxMesh_lb6m7")
-skeleton = NodePath("../CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall4"]
-shape = SubResource("BoxShape3D_bdxf8")
-
-[node name="Wall5" type="StaticBody3D" parent="Walls"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4, 0, 29)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Walls/Wall5"]
-layers = 15
-mesh = SubResource("BoxMesh_lb6m7")
-skeleton = NodePath("../CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall5"]
-shape = SubResource("BoxShape3D_bdxf8")
 
 [node name="PlaneMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.999959, 0, 0.00900578, 0, 1, 0, -0.00900578, 0, 0.999959, 0, 0, 0)
 layers = 15
 mesh = SubResource("PlaneMesh_el30q")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-
 [node name="Player" parent="." instance=ExtResource("6_l8ony")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Generator" type="Node3D" parent="."]
+script = ExtResource("6_xkupr")
+Map = ExtResource("7_aftxg")
+Cell = ExtResource("8_ueq20")

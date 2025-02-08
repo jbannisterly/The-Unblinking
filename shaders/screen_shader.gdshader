@@ -39,7 +39,7 @@ vec3 hsv2rgb_smooth( in vec3 c )
 {
     vec3 rgb = clamp( abs(mod(c.x*6.0+vec3(0.0,4.0,2.0),6.0)-3.0)-1.0, 0.0, 1.0 );
 
-	rgb = rgb*rgb*(3.0-2.0*rgb); // cubic smoothing	
+	rgb = rgb*rgb*(3.0-2.0*rgb); // cubic smoothing
 
 	return c.z * mix( vec3(1.0), rgb, c.y);
 }
@@ -61,22 +61,22 @@ void fragment()
 	// Read the buffers for this pixel (and convert to original values as necessary)
 	vec4 color = texture(color_buffer, SCREEN_UV);
 	vec3 normal = 2.0 * texture(normal_buffer, SCREEN_UV).xyz - vec3(1.0);
-	
+
 	vec2 depth_xy = texture(depth_buffer, SCREEN_UV).xy;
 	float depth = 1. / depth_xy.x;
 	if (isinf(depth) || isnan(depth)) {
 		depth = 0.;
 	}
-	
+
 	float modified_depth = depth * pow(1. - depth, 0.1);
 	float hue = pow(clamp(modified_depth, 0.2, 1.), 2.);
 	float value = pow(modified_depth, 2.);
 	vec3 colour = hsv2rgb_smooth(vec3(hue, 1., value));
-	
+
 
  	highp float fragmentColor = mix(0.05, 0.35, 1.0 - SCREEN_UV.y);
 	colour += mix(-NOISE_GRANULARITY, NOISE_GRANULARITY, random(SCREEN_UV));
-	
+
 	if (depth > 0.) {
 		ALBEDO = colour;
 		//ALBEDO = vec3(depth);
@@ -85,6 +85,6 @@ void fragment()
 	} else {
 		ALBEDO = vec3(0.);
 	}
-	//ALBEDO = vec3(depth);    
+	//ALBEDO = vec3(depth);
 	//ALBEDO = vec3(normal + 1.) / 2.;
 }
