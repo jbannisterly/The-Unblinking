@@ -1,0 +1,77 @@
+[gd_scene load_steps=14 format=3 uid="uid://bb5e4oatdwlk4"]
+
+[ext_resource type="Script" path="res://Scripts/CameraController.gd" id="1_bjhei"]
+[ext_resource type="PackedScene" uid="uid://8asyaabarqim" path="res://objects/main_camera.tscn" id="1_kd18v"]
+[ext_resource type="Shader" path="res://shaders/modular/depth_shader.gdshader" id="2_1y334"]
+[ext_resource type="Shader" path="res://shaders/modular/normal_shader.gdshader" id="2_wrjhx"]
+[ext_resource type="Shader" path="res://shaders/modular/opaque_color_shader.gdshader" id="5_7v8kw"]
+[ext_resource type="Shader" path="res://shaders/monolithic/opaque_shader.gdshader" id="5_jek8r"]
+
+[sub_resource type="Environment" id="Environment_4jik7"]
+background_mode = 1
+background_color = Color(0.501961, 0.501961, 0.501961, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_digkk"]
+render_priority = 0
+shader = ExtResource("2_wrjhx")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_he7g1"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_digkk")
+shader = ExtResource("2_1y334")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p8bk1"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_he7g1")
+shader = ExtResource("5_7v8kw")
+shader_parameter/color = Color(1, 1, 1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_el30q"]
+material = SubResource("ShaderMaterial_p8bk1")
+size = Vector2(10, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tjsoc"]
+render_priority = 0
+shader = ExtResource("5_jek8r")
+shader_parameter/color = Color(1, 1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cmh7b"]
+material = SubResource("ShaderMaterial_tjsoc")
+size = Vector3(30, 2, 0.5)
+
+[node name="ModularTestScene" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_4jik7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.965926, -0.25, 0.0669873, 0, 0.258819, 0.965926, -0.258819, -0.933013, 0.25, 0, 0, 0)
+layers = 3
+shadow_enabled = true
+
+[node name="PlaneMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.999959, 0, 0.00900578, 0, 1, 0, -0.00900578, 0, 0.999959, 0, 0, 0.0777123)
+layers = 15
+mesh = SubResource("PlaneMesh_el30q")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.15795, 1, -0.523988)
+layers = 15
+mesh = SubResource("BoxMesh_cmh7b")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.349517, 1, -2.13266)
+layers = 15
+mesh = SubResource("BoxMesh_cmh7b")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
+motion_mode = 1
+script = ExtResource("1_bjhei")
+
+[node name="MainCamera" parent="CharacterBody3D" instance=ExtResource("1_kd18v")]
+transform = Transform3D(-0.490904, 0, 0.871214, 0, 1, 0, -0.871214, 0, -0.490904, 1.48308, -0.0114291, 4.08581)
+near = 0.001
