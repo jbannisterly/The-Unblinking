@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bb5e4oatdwlk4"]
+[gd_scene load_steps=15 format=3 uid="uid://bb5e4oatdwlk4"]
 
 [ext_resource type="Script" path="res://Scripts/CameraController.gd" id="1_bjhei"]
 [ext_resource type="PackedScene" uid="uid://8asyaabarqim" path="res://objects/main_camera.tscn" id="1_kd18v"]
@@ -6,6 +6,7 @@
 [ext_resource type="Shader" path="res://shaders/modular/normal_shader.gdshader" id="2_wrjhx"]
 [ext_resource type="Shader" path="res://shaders/modular/opaque_color_shader.gdshader" id="5_7v8kw"]
 [ext_resource type="Shader" path="res://shaders/monolithic/opaque_shader.gdshader" id="5_jek8r"]
+[ext_resource type="AudioStream" uid="uid://b3ijksaq2rpv7" path="res://Soundtrack.mp3" id="7_6vwvj"]
 
 [sub_resource type="Environment" id="Environment_4jik7"]
 background_mode = 1
@@ -75,3 +76,8 @@ script = ExtResource("1_bjhei")
 [node name="MainCamera" parent="CharacterBody3D" instance=ExtResource("1_kd18v")]
 transform = Transform3D(-0.490904, 0, 0.871214, 0, 1, 0, -0.871214, 0, -0.490904, 1.48308, -0.0114291, 4.08581)
 near = 0.001
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_6vwvj")
+autoplay = true
+parameters/looping = true
