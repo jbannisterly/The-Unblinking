@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://qqw3at5rndst"]
+
+[ext_resource type="Script" path="res://Scripts/CameraController.gd" id="1_6cfp5"]
+[ext_resource type="PackedScene" uid="uid://8asyaabarqim" path="res://objects/main_camera.tscn" id="2_itisv"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m7wva"]
+margin = 0.001
+radius = 1.5
+height = 3.0
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -1)
+motion_mode = 1
+script = ExtResource("1_6cfp5")
+speed = 5
+mouse_sense_x = 0.2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_m7wva")
+
+[node name="Camera" parent="." instance=ExtResource("2_itisv")]

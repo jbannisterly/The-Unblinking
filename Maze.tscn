@@ -1,12 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://bb5e4oatdwlk4"]
+[gd_scene load_steps=15 format=3 uid="uid://bb5e4oatdwlk4"]
 
-[ext_resource type="Script" path="res://Scripts/CameraController.gd" id="1_bjhei"]
-[ext_resource type="PackedScene" uid="uid://8asyaabarqim" path="res://objects/main_camera.tscn" id="1_kd18v"]
-[ext_resource type="Shader" path="res://shaders/modular/depth_shader.gdshader" id="2_1y334"]
-[ext_resource type="Shader" path="res://shaders/modular/normal_shader.gdshader" id="2_wrjhx"]
-[ext_resource type="Shader" path="res://shaders/modular/opaque_color_shader.gdshader" id="5_7v8kw"]
-[ext_resource type="Shader" path="res://shaders/monolithic/opaque_shader.gdshader" id="5_jek8r"]
-[ext_resource type="AudioStream" uid="uid://b3ijksaq2rpv7" path="res://Soundtrack.mp3" id="7_6vwvj"]
+[ext_resource type="AudioStream" uid="uid://b3ijksaq2rpv7" path="res://Soundtrack.mp3" id="1_begjm"]
+[ext_resource type="Shader" path="res://shaders/monolithic/opaque_shader.gdshader" id="2_dknrw"]
+[ext_resource type="Shader" path="res://shaders/modular/normal_shader.gdshader" id="3_legy6"]
+[ext_resource type="Shader" path="res://shaders/modular/depth_shader.gdshader" id="4_6epgm"]
+[ext_resource type="Shader" path="res://shaders/modular/opaque_color_shader.gdshader" id="5_yo60t"]
+[ext_resource type="PackedScene" uid="uid://qqw3at5rndst" path="res://objects/Player.tscn" id="6_l8ony"]
 
 [sub_resource type="Environment" id="Environment_4jik7"]
 background_mode = 1
@@ -15,14 +14,9 @@ ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.5
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ki5cp"]
-margin = 0.001
-radius = 1.5
-height = 3.0
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p7t6p"]
 render_priority = 0
-shader = ExtResource("5_jek8r")
+shader = ExtResource("2_dknrw")
 shader_parameter/color = Color(1, 1, 1, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_lb6m7"]
@@ -34,17 +28,17 @@ size = Vector3(50, 50, 0.5)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_digkk"]
 render_priority = 0
-shader = ExtResource("2_wrjhx")
+shader = ExtResource("3_legy6")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_he7g1"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_digkk")
-shader = ExtResource("2_1y334")
+shader = ExtResource("4_6epgm")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p8bk1"]
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_he7g1")
-shader = ExtResource("5_7v8kw")
+shader = ExtResource("5_yo60t")
 shader_parameter/color = Color(1, 1, 1, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_el30q"]
@@ -56,20 +50,8 @@ size = Vector2(100, 100)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_4jik7")
 
-[node name="Player" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -1)
-motion_mode = 1
-script = ExtResource("1_bjhei")
-speed = 5
-mouse_sense_x = 0.2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-shape = SubResource("CapsuleShape3D_ki5cp")
-
-[node name="Camera" parent="Player" instance=ExtResource("1_kd18v")]
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_6vwvj")
+stream = ExtResource("1_begjm")
 autoplay = true
 parameters/looping = true
 
@@ -170,3 +152,5 @@ layers = 15
 mesh = SubResource("PlaneMesh_el30q")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("6_l8ony")]
