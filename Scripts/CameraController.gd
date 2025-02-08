@@ -12,6 +12,7 @@ var look_x: float = 0.;
 var look_y: float = 0.;
 var capture_mouse: bool = false;
 var can_start: bool = false;
+var noise: AudioStreamPlayer
 
 func capture():
 	if capture_mouse:
@@ -64,7 +65,10 @@ func _physics_process(delta):
 		position.y = prevY;
 	
 func increase_score():
-	print("Increase score");
+	if (noise == null):
+		noise = get_node("Noise")
+	if (noise != null):
+		noise.play()
 
 
 func _on_cutscene_finished() -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bb5e4oatdwlk4"]
+[gd_scene load_steps=19 format=3 uid="uid://bb5e4oatdwlk4"]
 
 [ext_resource type="AudioStream" uid="uid://b3ijksaq2rpv7" path="res://Soundtrack.mp3" id="1_begjm"]
 [ext_resource type="Script" path="res://Scripts/background_noise.gd" id="2_hosgw"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://Scripts/texture_rect.gd" id="12_38h7f"]
 [ext_resource type="Texture2D" uid="uid://cvapywoucv8hg" path="res://Resources/TitleScreen.png" id="12_o8h4k"]
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="13_o7gfk"]
+[ext_resource type="AudioStream" uid="uid://bwhps4bx7oyjx" path="res://GetBack.mp3" id="14_sxx3p"]
 
 [sub_resource type="Environment" id="Environment_4jik7"]
 background_mode = 1
@@ -82,6 +83,10 @@ layers = 15
 mesh = SubResource("CylinderMesh_8fatv")
 script = ExtResource("13_o7gfk")
 
+[node name="JohnNoise" type="AudioStreamPlayer3D" parent="JohnScare"]
+stream = ExtResource("14_sxx3p")
+
 [connection signal="finished" from="Cutscene" to="BackgroundNoise" method="_on_cutscene_finished"]
 [connection signal="finished" from="Cutscene" to="Player" method="_on_cutscene_finished"]
 [connection signal="gui_input" from="TextureRect" to="Cutscene" method="_on_texture_rect_gui_input"]
+[connection signal="finished" from="JohnScare/JohnNoise" to="JohnScare" method="_on_john_noise_finished"]
