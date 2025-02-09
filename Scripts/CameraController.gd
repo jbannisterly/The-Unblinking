@@ -13,6 +13,7 @@ var look_y: float = 0.;
 var capture_mouse: bool = false;
 var can_start: bool = false;
 var noise: AudioStreamPlayer
+var noise2: AudioStreamPlayer
 
 var game_finished = false;
 
@@ -91,6 +92,11 @@ func increase_score():
 		
 		if (current_score == required_score):
 			game_finished = true;
+			if (noise2 == null):
+				noise2 = get_node("Noise2")
+			if (noise2 != null):
+				noise2.play()
+
 			
 func has_game_finished():
 	return game_finished;

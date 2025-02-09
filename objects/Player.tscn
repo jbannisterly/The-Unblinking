@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://qqw3at5rndst"]
+[gd_scene load_steps=6 format=3 uid="uid://qqw3at5rndst"]
 
 [ext_resource type="Script" path="res://Scripts/CameraController.gd" id="1_6cfp5"]
 [ext_resource type="PackedScene" uid="uid://8asyaabarqim" path="res://objects/main_camera.tscn" id="2_itisv"]
 [ext_resource type="AudioStream" uid="uid://bs0updavvuhxt" path="res://Audio/Ding.mp3" id="3_wpah2"]
+[ext_resource type="AudioStream" uid="uid://bwhps4bx7oyjx" path="res://Audio/GetBack.mp3" id="4_yicyl"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m7wva"]
 margin = 0.001
@@ -23,3 +24,6 @@ shape = SubResource("CapsuleShape3D_m7wva")
 
 [node name="Noise" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_wpah2")
+
+[node name="Noise2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_yicyl")
