@@ -117,3 +117,6 @@ func GameOver(targetPosition):
 	targetRotation = atan2(deltaPos.x, deltaPos.z)
 	if (deltaPos.z > 0):
 		targetRotation += 180
+		
+func GetFractionGot():
+	return current_score / required_score
