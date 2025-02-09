@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bb5e4oatdwlk4"]
+[gd_scene load_steps=28 format=3 uid="uid://bb5e4oatdwlk4"]
 
 [ext_resource type="AudioStream" uid="uid://b3ijksaq2rpv7" path="res://Audio/Soundtrack.mp3" id="1_begjm"]
 [ext_resource type="Script" path="res://Scripts/background_noise.gd" id="2_hosgw"]
@@ -19,6 +19,7 @@
 [ext_resource type="Shader" path="res://shaders/Body.gdshader" id="16_yg62r"]
 [ext_resource type="Texture2D" uid="uid://c6pxv0rir6r2h" path="res://Resources/TextureFace.png" id="17_f4p3o"]
 [ext_resource type="Shader" path="res://shaders/John2.gdshader" id="18_8rt1x"]
+[ext_resource type="Script" path="res://Scripts/end_trigger.gd" id="20_jysn0"]
 
 [sub_resource type="Environment" id="Environment_4jik7"]
 background_mode = 1
@@ -46,6 +47,9 @@ shader_parameter/john_tex = ExtResource("17_f4p3o")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s07lg"]
 next_pass = SubResource("ShaderMaterial_latcx")
 albedo_texture = ExtResource("17_f4p3o")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6ofa1"]
+radius = 2.0
 
 [node name="ModularTestScene" type="Node3D"]
 
@@ -110,6 +114,14 @@ surface_material_override/0 = SubResource("ShaderMaterial_764xd")
 layers = 15
 mesh = ExtResource("16_mgbf4")
 surface_material_override/0 = SubResource("StandardMaterial3D_s07lg")
+
+[node name="EndTrigger" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.95767, 1, -0.91218)
+script = ExtResource("20_jysn0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EndTrigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.1)
+shape = SubResource("SphereShape3D_6ofa1")
 
 [connection signal="finished" from="Cutscene" to="BackgroundNoise" method="_on_cutscene_finished"]
 [connection signal="finished" from="Cutscene" to="Player" method="_on_cutscene_finished"]

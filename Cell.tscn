@@ -4,7 +4,6 @@
 [ext_resource type="Shader" path="res://shaders/OpaqueShader.gdshader" id="2_4yfyi"]
 [ext_resource type="Script" path="res://Scripts/Paper.gd" id="3_o3u3f"]
 [ext_resource type="Shader" path="res://shaders/Pickup.gdshader" id="3_wrsh4"]
-[ext_resource type="Script" path="res://Scripts/AddPoint.gd" id="5_s8141"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p4px3"]
 render_priority = 0
@@ -45,6 +44,23 @@ material = SubResource("ShaderMaterial_krb8a")
 size = Vector3(1, 1, 0.05)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k0jfb"]
+
+[sub_resource type="GDScript" id="GDScript_yteyi"]
+script/source = "extends CollisionShape3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+	
+func _area_entered(body):
+	print(\"Enter\");
+"
 
 [node name="Cell" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0043931, 0.00492263, -0.000743151)
@@ -111,4 +127,4 @@ skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Point" groups=["Trigger"]]
 shape = SubResource("BoxShape3D_k0jfb")
-script = ExtResource("5_s8141")
+script = SubResource("GDScript_yteyi")

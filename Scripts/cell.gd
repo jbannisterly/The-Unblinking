@@ -8,6 +8,7 @@ extends Node3D
 @onready var southWallCollider = $SouthWall/SouthWallCollider;
 @onready var westWall = $WestWall; 
 @onready var westWallCollider = $WestWall/WestWallCollider;
+@onready var point = $Point;
 
 func update_faces(tiles):
 	var gridPosition = Vector2i(position.x / 10., position.z / 10.);
@@ -23,6 +24,8 @@ func update_faces(tiles):
 	if tiles.has(gridPosition + Vector2i.UP):
 		southWall.hide();
 		southWallCollider.disabled = true;
+	
+	point.setActive();
 	pass
 	
 # Called when the node enters the scene tree for the first time.

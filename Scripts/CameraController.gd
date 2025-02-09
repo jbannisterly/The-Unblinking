@@ -14,6 +14,8 @@ var capture_mouse: bool = false;
 var can_start: bool = false;
 var noise: AudioStreamPlayer
 
+var game_finished = false;
+
 var current_score = 0;
 var required_score = 0;
 
@@ -78,7 +80,12 @@ func increase_score():
 		current_score += 1;
 		print("%d / %d" % [current_score, required_score]);
 		noise.play()
-
+		
+		if (current_score == required_score):
+			game_finished = true;
+			
+func has_game_finished():
+	return game_finished;
 
 func _on_cutscene_finished() -> void:
 	can_start = true;

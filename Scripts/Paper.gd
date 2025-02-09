@@ -4,12 +4,25 @@ var original_position = Vector3(0., 0., 0.);
 var t = 0.;
 var triggered = false;
 
+@onready var collider = $CollisionShape3D;
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_monitoring(true);
 	original_position = position;
-	var player = get_tree().get_first_node_in_group("Player");
-	player.add_to_required_score();
+
+func setActive():
+	var gridPosition = Vector2i(get_parent().position.x / 10., get_parent().position.z / 10.);
+	
+	var range = 3;
+		
+	#if (gridPosition.x >= -range && gridPosition.y >= -range && gridPosition.x <= range && gridPosition.y <= range):
+	if (gridPosition.x >= -range && gridPosition.x <= range) && (gridPosition.y >= -range && gridPosition.y <= range):
+		self.visible = false;
+		collider.disabled = true;
+	else:
+		var player = get_tree().get_first_node_in_group("Player");
+		player.add_to_required_score();
 
 func _process(delta: float) -> void:
 	t += delta;
