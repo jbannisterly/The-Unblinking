@@ -75,7 +75,7 @@ void fragment()
 
 	if (depth_xy.y == 1. && modified_depth > 0.2) {
 			ALBEDO=vec3(0.3);
-	} else if (depth_xy.y == 2.){
+	} else if (depth_xy.y == 2. && modified_depth > 0.25){
 			ALBEDO = color.rgb;
 	} else{
 		//if (depth > 0.) {

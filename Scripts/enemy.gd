@@ -1,5 +1,7 @@
 extends StaticBody3D
 
+var DEBUGMODE = false
+
 var player: Node3D
 var totalDeltaTime = 0
 var playing = false
@@ -32,8 +34,8 @@ func _process(delta: float) -> void:
 				position.y = 0;
 				if ((pos2D - playerPos2D).normalized().dot(playerFd)) < 0:
 					if floor(totalDeltaTime) < floor(totalDeltaTime + delta):
-						print(player.GetFractionGot())
-						if (randf() > min((1 - player.GetFractionGot() * 0.04), 0.9)):
+						# print(player.GetFractionGot())
+						if (randf() > min((1 - player.GetFractionGot() * 0.04), 0.9)) or DEBUGMODE:
 							moveBehind(playerFd)
 					totalDeltaTime += delta
 			else:
@@ -42,8 +44,12 @@ func _process(delta: float) -> void:
 
 func moveBehind(playerFd):
 	position = player.global_position + playerFd * -1.5
+	if (DEBUGMODE):
+		position = player.global_position + playerFd * 3
 	var targetRotation = atan2(playerFd.x, playerFd.z) * 180 / PI
-	if (playerFd.z > 0):
+	if (playerFd.z < 0):
+		targetRotation += 180
+	if (DEBUGMODE):
 		targetRotation += 180
 	rotation_degrees.y = targetRotation
 	

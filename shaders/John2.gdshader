@@ -31,7 +31,8 @@ void fragment() {
 	}
 	else
 	{
-		ALBEDO = texture(john_tex, UV).rgb;
-		ALPHA = 1.;
+		vec3 col = texture(john_tex, UV).rgb;
+		ALPHA = 1. - col.r;
+		ALBEDO = col;
 	}
 }
