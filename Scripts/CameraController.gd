@@ -60,6 +60,7 @@ func _physics_process(delta):
 		target_velocity.z = direction.z * speed;
 	
 		velocity = basis * target_velocity;
+		
 		var prevY = position.y;
 		move_and_slide();
 		position.y = prevY;

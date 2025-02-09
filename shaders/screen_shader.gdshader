@@ -17,7 +17,7 @@ render_mode unshaded;
 // Contains layer numbers and some common functions
 #include "res://shaders/globals.gdshaderinc"
 
-
+uniform float time;
 
 // UNIFORMS
 
@@ -45,7 +45,7 @@ vec3 hsv2rgb_smooth( in vec3 c )
 }
 
 highp float random(highp vec2 coords) {
-   return fract(sin(dot(coords.xy, vec2(12.9898,78.233))) * 43758.5453);
+   return fract(sin(dot(coords.xy, vec2(12.9898,78.233))) * 43758.5453 + time);
 }
 
 // Called once for each vertex.
