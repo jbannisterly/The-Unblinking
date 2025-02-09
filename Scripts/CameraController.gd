@@ -15,6 +15,7 @@ var look_y: float = 0.;
 var capture_mouse: bool = false;
 var can_start: bool = false;
 var noise: AudioStreamPlayer
+var noise2: AudioStreamPlayer
 
 var game_finished = false;
 
@@ -51,6 +52,11 @@ func _input(event):
 			look_y = clamp(look_y, -89, 89);
 
 func _physics_process(delta):
+	if Input.is_action_just_pressed("toggle_capture"):
+		toggle_capture();
+	if Input.is_action_just_pressed("Escape"):
+		get_tree().quit();
+		
 	if can_start and not gameOver:
 		var direction = Vector3.ZERO;
 	
@@ -65,10 +71,6 @@ func _physics_process(delta):
 			direction.z += 1;
 		if Input.is_action_pressed("move_forward"):
 			direction.z -= 1;
-		if Input.is_action_just_pressed("toggle_capture"):
-			toggle_capture();
-		if Input.is_action_just_pressed("Escape"):
-			get_tree().quit();
 		
 		if direction != Vector3.ZERO:
 			direction = direction.normalized();
@@ -96,6 +98,11 @@ func increase_score():
 		
 		if (current_score == required_score):
 			game_finished = true;
+			if (noise2 == null):
+				noise2 = get_node("Noise2")
+			if (noise2 != null):
+				noise2.play()
+
 			
 func has_game_finished():
 	return game_finished;

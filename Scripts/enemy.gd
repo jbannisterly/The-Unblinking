@@ -32,7 +32,7 @@ func _process(delta: float) -> void:
 				position.y = 0;
 				if ((pos2D - playerPos2D).normalized().dot(playerFd)) < 0:
 					if floor(totalDeltaTime) < floor(totalDeltaTime + delta):
-						if randf() > 0:
+						if randf() > 0.8:
 							moveBehind(playerFd)
 					totalDeltaTime += delta
 			else:

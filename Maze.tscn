@@ -13,7 +13,7 @@
 [ext_resource type="Script" path="res://Scripts/texture_rect.gd" id="12_38h7f"]
 [ext_resource type="Texture2D" uid="uid://cvapywoucv8hg" path="res://Resources/TitleScreen.png" id="12_o8h4k"]
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="13_o7gfk"]
-[ext_resource type="AudioStream" uid="uid://bwhps4bx7oyjx" path="res://Audio/GetBack.mp3" id="14_sxx3p"]
+[ext_resource type="AudioStream" uid="uid://dpm8tb2xo05q8" path="res://Audio/scream.mp3" id="14_ypcw1"]
 [ext_resource type="ArrayMesh" uid="uid://7fudoqli4pkd" path="res://Models/EnemyBody.obj" id="15_0xjun"]
 [ext_resource type="ArrayMesh" uid="uid://2d0o2qsmug8n" path="res://Models/EnemyHead.obj" id="16_mgbf4"]
 [ext_resource type="Shader" path="res://shaders/Body.gdshader" id="16_yg62r"]
@@ -108,7 +108,7 @@ script = ExtResource("12_38h7f")
 script = ExtResource("13_o7gfk")
 
 [node name="JohnNoise" type="AudioStreamPlayer3D" parent="John"]
-stream = ExtResource("14_sxx3p")
+stream = ExtResource("14_ypcw1")
 
 [node name="Body" type="MeshInstance3D" parent="John"]
 layers = 15
