@@ -19,6 +19,14 @@ var game_finished = false;
 var current_score = 0;
 var required_score = 0;
 
+var gameOver = false
+var targetRotation = 0
+
+func _process(delta: float) -> void:
+	if gameOver:
+		rotation_degrees.x = 30
+		rotation_degrees.y = targetRotation
+
 func capture():
 	if capture_mouse:
 		Input.set_mouse_mode(Input.MouseMode.MOUSE_MODE_CAPTURED);
@@ -33,7 +41,7 @@ func _ready():
 	capture();
 
 func _input(event):
-	if can_start:
+	if can_start and not gameOver:
 		if event is InputEventMouseMotion:
 			look_x += -event.relative.x * mouse_sense_x;
 			look_y += -event.relative.y * mouse_sense_y;
@@ -41,7 +49,7 @@ func _input(event):
 			look_y = clamp(look_y, -89, 89);
 
 func _physics_process(delta):
-	if can_start:
+	if can_start and not gameOver:
 		var direction = Vector3.ZERO;
 	
 		rotation_degrees.y = look_x;
@@ -89,3 +97,11 @@ func has_game_finished():
 
 func _on_cutscene_finished() -> void:
 	can_start = true;
+
+func GameOver(targetPosition):
+	gameOver = true;
+	var deltaPos = targetPosition - position
+	deltaPos.y = 0
+	targetRotation = atan2(deltaPos.x, deltaPos.z)
+	if (deltaPos.z > 0):
+		targetRotation += 180
