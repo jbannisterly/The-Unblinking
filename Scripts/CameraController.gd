@@ -49,6 +49,8 @@ func _input(event):
 			look_y = clamp(look_y, -89, 89);
 
 func _physics_process(delta):
+	if Input.is_action_just_pressed("toggle_capture"):
+		toggle_capture();
 	if can_start and not gameOver:
 		var direction = Vector3.ZERO;
 	
@@ -63,8 +65,6 @@ func _physics_process(delta):
 			direction.z += 1;
 		if Input.is_action_pressed("move_forward"):
 			direction.z -= 1;
-		if Input.is_action_just_pressed("toggle_capture"):
-			toggle_capture();
 		
 		if direction != Vector3.ZERO:
 			direction = direction.normalized();
