@@ -8,6 +8,8 @@ var triggered = false;
 func _ready() -> void:
 	set_monitoring(true);
 	original_position = position;
+	var player = get_tree().get_first_node_in_group("Player");
+	player.add_to_required_score();
 
 func _process(delta: float) -> void:
 	t += delta;

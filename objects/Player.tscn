@@ -12,8 +12,9 @@ height = 3.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -1)
 motion_mode = 1
 script = ExtResource("1_6cfp5")
-speed = 5
+speed = 3
 mouse_sense_x = 0.2
+mouse_sense_y = 0.2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_m7wva")

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtatngyx3n7v5"]
+
+[ext_resource type="Script" path="res://objects/main_camera.gd" id="1_4git2"]
+[ext_resource type="AudioStream" uid="uid://bwhps4bx7oyjx" path="res://GetBack.mp3" id="1_cor1r"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_4git2")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_cor1r")
+autoplay = true

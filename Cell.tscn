@@ -42,6 +42,7 @@ shader = ExtResource("3_wrsh4")
 
 [sub_resource type="BoxMesh" id="BoxMesh_dpiqd"]
 material = SubResource("ShaderMaterial_krb8a")
+size = Vector3(1, 1, 0.05)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k0jfb"]
 

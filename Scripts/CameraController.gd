@@ -14,6 +14,9 @@ var capture_mouse: bool = false;
 var can_start: bool = false;
 var noise: AudioStreamPlayer
 
+var current_score = 0;
+var required_score = 0;
+
 func capture():
 	if capture_mouse:
 		Input.set_mouse_mode(Input.MouseMode.MOUSE_MODE_CAPTURED);
@@ -64,11 +67,16 @@ func _physics_process(delta):
 		var prevY = position.y;
 		move_and_slide();
 		position.y = prevY;
+		
+func add_to_required_score():
+	required_score += 1;
 	
 func increase_score():
 	if (noise == null):
 		noise = get_node("Noise")
 	if (noise != null):
+		current_score += 1;
+		print("%d / %d" % [current_score, required_score]);
 		noise.play()
 
 

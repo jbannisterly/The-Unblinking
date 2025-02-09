@@ -41,7 +41,7 @@ vec3 hsv2rgb_smooth( in vec3 c )
 
 	rgb = rgb*rgb*(3.0-2.0*rgb); // cubic smoothing
 
-	return c.z * mix( vec3(1.0), rgb, c.y);
+	return c.z * mix(vec3(1.0), rgb, c.y);
 }
 
 highp float random(highp vec2 coords) {
@@ -63,31 +63,23 @@ void fragment()
 	vec3 normal = 2.0 * texture(normal_buffer, SCREEN_UV).xyz - vec3(1.0);
 
 	vec2 depth_xy = texture(depth_buffer, SCREEN_UV).xy;
-	float depth = 1. / depth_xy.x;
-	if (isinf(depth) || isnan(depth)) {
-		depth = 0.;
-	}
+	float depth = 1. / depth_xy.x * 2.;
 
-	float modified_depth = depth * pow(1. - depth, 0.1);
-	float hue = clamp(pow(modified_depth, 2.), 0.01, 1.);
-	float value = pow(modified_depth, 2.);
+	float modified_depth = depth * pow(1. - depth, 0.5);
+	float hue = clamp(pow(modified_depth, 2.), 0., 10.);
+	float value = clamp(pow(modified_depth, 2.), 0.02, 10.);
 	vec3 colour = hsv2rgb_smooth(vec3(hue, 1., value));
 
- 	highp float fragmentColor = mix(0.05, 0.35, 1.0 - SCREEN_UV.y);
 	colour += mix(-NOISE_GRANULARITY, NOISE_GRANULARITY, random(SCREEN_UV));
 
-if (depth_xy.y == 0.) {
-	if (depth > 0.) {
-		ALBEDO = colour;
-		//ALBEDO = vec3(depth);
-		//ALBEDO = vec4(dither(colour2;
-		//ALBEDO = min(mix(c1, c2, depth) * pow(1. - depth, 0.1), vec3(1));
+
+	if (depth_xy.y == 1. && modified_depth > 0.2) {
+			ALBEDO=vec3(0.3);
 	} else {
-		ALBEDO = vec3(0.);
+		//if (depth > 0.) {
+			ALBEDO = colour;
+		//} else {
+			//ALBEDO = vec3(0.);
+		//}
 	}
-	} else if (depth_xy.y == 1.) {
-		ALBEDO=vec3(1.);
-	}
-	//ALBEDO = vec3(depth);
-	//ALBEDO = vec3(normal + 1.) / 2.;
 }
