@@ -41,7 +41,7 @@ func _process(delta: float) -> void:
 				position.y = 0;
 
 func moveBehind(playerFd):
-	position = player.global_position + playerFd * 3
+	position = player.global_position + playerFd * -1.5
 	var targetRotation = atan2(playerFd.x, playerFd.z) * 180 / PI
 	if (playerFd.z > 0):
 		targetRotation += 180
