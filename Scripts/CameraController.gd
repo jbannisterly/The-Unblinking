@@ -1,5 +1,7 @@
 extends CharacterBody3D;
 
+@onready var points = $Screen;
+
 @export var speed = 100;
 @export var mouse_sense_x = 0.5;
 @export var mouse_sense_y = 0.5;
@@ -65,6 +67,8 @@ func _physics_process(delta):
 			direction.z -= 1;
 		if Input.is_action_just_pressed("toggle_capture"):
 			toggle_capture();
+		if Input.is_action_just_pressed("Escape"):
+			get_tree().quit();
 		
 		if direction != Vector3.ZERO:
 			direction = direction.normalized();
@@ -86,7 +90,8 @@ func increase_score():
 		noise = get_node("Noise")
 	if (noise != null):
 		current_score += 1;
-		print("%d / %d" % [current_score, required_score]);
+		#print();
+		points.text = "Supervision Work Collected: %d / %d" % [current_score, required_score];
 		noise.play()
 		
 		if (current_score == required_score):

@@ -67,6 +67,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 speed = 10
 mouse_sense_y = 0.5
 
+[node name="Screen" type="Label" parent="Player"]
+offset_left = 712.0
+offset_right = 1152.0
+offset_bottom = 72.0
+
 [node name="Generator" type="Node3D" parent="."]
 script = ExtResource("6_xkupr")
 Map = ExtResource("7_aftxg")

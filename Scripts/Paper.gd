@@ -14,10 +14,11 @@ func _ready() -> void:
 func setActive():
 	var gridPosition = Vector2i(get_parent().position.x / 10., get_parent().position.z / 10.);
 	
-	var range = 3;
+	var range_x = 3;
+	var range_y = 2;
 		
 	#if (gridPosition.x >= -range && gridPosition.y >= -range && gridPosition.x <= range && gridPosition.y <= range):
-	if (gridPosition.x >= -range && gridPosition.x <= range) && (gridPosition.y >= -range && gridPosition.y <= range):
+	if (gridPosition.x >= -range_x && gridPosition.x <= range_x) && (gridPosition.y >= -range_y && gridPosition.y <= range_y):
 		self.visible = false;
 		collider.disabled = true;
 	else:
