@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bb5e4oatdwlk4"]
+[gd_scene load_steps=30 format=3 uid="uid://bb5e4oatdwlk4"]
 
 [ext_resource type="AudioStream" uid="uid://b3ijksaq2rpv7" path="res://Audio/Soundtrack.mp3" id="1_begjm"]
 [ext_resource type="Script" path="res://Scripts/background_noise.gd" id="2_hosgw"]
@@ -21,6 +21,7 @@
 [ext_resource type="Shader" path="res://shaders/John2.gdshader" id="18_8rt1x"]
 [ext_resource type="Script" path="res://Scripts/end_trigger.gd" id="20_jysn0"]
 [ext_resource type="Script" path="res://Scripts/head.gd" id="20_yhd5p"]
+[ext_resource type="Texture2D" uid="uid://bj1hxsby06226" path="res://Resources/Complete.png" id="21_nxhg7"]
 
 [sub_resource type="Environment" id="Environment_4jik7"]
 background_mode = 1
@@ -90,8 +91,8 @@ mesh = ExtResource("6_w8ded")
 shape = SubResource("ConcavePolygonShape3D_8m671")
 
 [node name="Cutscene" type="VideoStreamPlayer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1376.0
+offset_bottom = 736.0
 stream = ExtResource("8_520w4")
 script = ExtResource("10_7w4f2")
 
@@ -124,13 +125,46 @@ mesh = ExtResource("16_mgbf4")
 surface_material_override/0 = SubResource("StandardMaterial3D_mqemr")
 script = ExtResource("20_yhd5p")
 
-[node name="EndTrigger" type="Area3D" parent="."]
+[node name="EndTrigger" type="Area3D" parent="." node_paths=PackedStringArray("winScreen")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.95767, 1, -0.91218)
 script = ExtResource("20_jysn0")
+winScreen = NodePath("../WinScreen")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EndTrigger"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.1)
 shape = SubResource("SphereShape3D_6ofa1")
+
+[node name="WinScreen" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="WinScreen"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("21_nxhg7")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="WinScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 36.0
+offset_right = -27.0
+offset_bottom = 59.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(5, 5)
+text = "20:20.200"
 
 [connection signal="finished" from="Cutscene" to="BackgroundNoise" method="_on_cutscene_finished"]
 [connection signal="finished" from="Cutscene" to="Player" method="_on_cutscene_finished"]

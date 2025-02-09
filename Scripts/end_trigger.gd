@@ -17,4 +17,4 @@ func _process(delta: float) -> void:
 				var minutes = body.time / 60.;
 				var seconds = fmod(body.time, 60.);
 				body.gameOver = true;
-				winScreen.get_child(1).text = "%.0f:%2.3f" % [minutes, seconds];
+				winScreen.get_child(1).text = "%02.0f:%2.3f" % [minutes, seconds];
