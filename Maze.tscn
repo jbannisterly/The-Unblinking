@@ -91,8 +91,13 @@ mesh = ExtResource("6_w8ded")
 shape = SubResource("ConcavePolygonShape3D_8m671")
 
 [node name="Cutscene" type="VideoStreamPlayer" parent="."]
-offset_right = 1376.0
-offset_bottom = 736.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 224.0
+offset_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 2
 stream = ExtResource("8_520w4")
 script = ExtResource("10_7w4f2")
 
@@ -144,9 +149,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="WinScreen"]
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("21_nxhg7")
 expand_mode = 2
 
