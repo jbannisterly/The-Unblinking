@@ -98,6 +98,7 @@ func increase_score():
 		
 		if (current_score == required_score):
 			game_finished = true;
+			points.text = "Return to the Intel Lab";
 			if (noise2 == null):
 				noise2 = get_node("Noise2")
 			if (noise2 != null):

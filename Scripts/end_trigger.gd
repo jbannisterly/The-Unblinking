@@ -1,5 +1,7 @@
 extends Area3D
 
+@export var winScreen: Control;
+#@onready var winScreen = $WinScreen;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -11,4 +13,5 @@ func _process(delta: float) -> void:
 	for body in bodies:
 		if body.is_in_group("Player"):
 			if (body.has_game_finished()):
-				print("Game Finished");
+				winScreen.visible = true;
+				#print("Game Finished");
