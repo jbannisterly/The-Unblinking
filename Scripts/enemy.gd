@@ -18,38 +18,49 @@ func _process(delta: float) -> void:
 	if (player == null):
 		player = get_node("../Player")
 	if (player != null):
-		var playerFd = Vector3(player.basis.z.x, 0, player.basis.z.z).normalized()
+		var pos2D = position
+		var playerPos2D = player.position
+		pos2D.y = 0
+		playerPos2D.y = 0
+		var playerFd = -Vector3(player.basis.z.x, 0, player.basis.z.z).normalized()
 		if (jumpscare):
 			jumpTime += delta
 			Jump(jumpTime, playerFd)
 		else:
-			if position.distance_squared_to(player.position) > 3:
-				if (player.position - position).dot(playerFd) < 0:
+			# print(pos2D.distance_squared_to(playerPos2D))
+			if pos2D.distance_squared_to(playerPos2D) > 3:
+				position.y = 0;
+				if ((pos2D - playerPos2D).normalized().dot(playerFd)) < 0:
 					if floor(totalDeltaTime) < floor(totalDeltaTime + delta):
 						if randf() > 0:
 							moveBehind(playerFd)
 					totalDeltaTime += delta
-			captureCheck(playerFd)
-			position.y = 0;
+			else:
+				captureCheck(playerFd, playerPos2D, pos2D)
+				position.y = 0;
 
 func moveBehind(playerFd):
-	position = player.global_position + playerFd * 1.5
+	position = player.global_position + playerFd * -1.5
 	
-func captureCheck(playerFd):
-	var distance2 = position.distance_squared_to(player.position)
+func captureCheck(playerFd, playerPos2D, pos2D):
+	var distance2 = pos2D.distance_squared_to(playerPos2D)
 	if distance2 < 3:
-		if (player.position - position).dot(playerFd) > 0:
+		# print((pos2D - playerPos2D).normalized().dot(playerFd))
+		if ((pos2D - playerPos2D).normalized().dot(playerFd)) > 0.4:
 			if (noise == null):
 				noise = get_node("JohnNoise")
 			if (noise != null):
 				if (!playing):
 					noise.play()
 					playing = true
-					jumpscare = true
+					# jumpscare = true
+					print("Game Over")
+					player.GameOver(position)
 
 func Jump(jumpTime, playerFd):
-	position = player.position + playerFd * -2 
-	position.y = min(0, -3 + jumpTime * 3)
+	position = player.position + playerFd * 2
+	# position.y = min(100)
+	print(position.y)
 	pass
 
 func _on_john_noise_finished() -> void:
