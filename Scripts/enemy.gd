@@ -32,7 +32,7 @@ func _process(delta: float) -> void:
 				position.y = 0;
 				if ((pos2D - playerPos2D).normalized().dot(playerFd)) < 0:
 					if floor(totalDeltaTime) < floor(totalDeltaTime + delta):
-						if randf() > 0.8:
+						if randf() > 0.:
 							moveBehind(playerFd)
 					totalDeltaTime += delta
 			else:
@@ -41,6 +41,11 @@ func _process(delta: float) -> void:
 
 func moveBehind(playerFd):
 	position = player.global_position + playerFd * -1.5
+	var targetRotation = atan2(playerFd.x, playerFd.z)
+	if (playerFd.z > 0):
+		targetRotation += 180
+	rotation_degrees.y = targetRotation
+	
 	
 func captureCheck(playerFd, playerPos2D, pos2D):
 	var distance2 = pos2D.distance_squared_to(playerPos2D)
@@ -53,14 +58,15 @@ func captureCheck(playerFd, playerPos2D, pos2D):
 				if (!playing):
 					noise.play()
 					playing = true
-					# jumpscare = true
+					jumpscare = true
 					print("Game Over")
 					player.GameOver(position)
 
 func Jump(jumpTime, playerFd):
 	position = player.position + playerFd * 2
 	# position.y = min(100)
-	print(position.y)
+	position.y = 0
+	# print(position.y)
 	pass
 
 func _on_john_noise_finished() -> void:
