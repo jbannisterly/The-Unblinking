@@ -4,6 +4,8 @@ var player: Node3D
 var totalDeltaTime = 0
 var playing = false
 var noise: AudioStreamPlayer3D
+var jumpscare = false
+var jumpTime = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,15 +19,18 @@ func _process(delta: float) -> void:
 		player = get_node("../Player")
 	if (player != null):
 		var playerFd = Vector3(player.basis.z.x, 0, player.basis.z.z).normalized()
-		if position.distance_squared_to(player.position) > 3:
-			if (player.position - position).dot(playerFd) < 0:
-				if floor(totalDeltaTime) < floor(totalDeltaTime + delta):
-					if randf() > 0.:
-						moveBehind(playerFd)
-				totalDeltaTime += delta
-		captureCheck(playerFd)
-		position = player.position + playerFd * -2
-		position.y = 0;
+		if (jumpscare):
+			jumpTime += delta
+			Jump(jumpTime, playerFd)
+		else:
+			if position.distance_squared_to(player.position) > 3:
+				if (player.position - position).dot(playerFd) < 0:
+					if floor(totalDeltaTime) < floor(totalDeltaTime + delta):
+						if randf() > 0:
+							moveBehind(playerFd)
+					totalDeltaTime += delta
+			captureCheck(playerFd)
+			position.y = 0;
 
 func moveBehind(playerFd):
 	position = player.global_position + playerFd * 1.5
@@ -40,8 +45,12 @@ func captureCheck(playerFd):
 				if (!playing):
 					noise.play()
 					playing = true
-				
+					jumpscare = true
 
+func Jump(jumpTime, playerFd):
+	position = player.position + playerFd * -2 
+	position.y = min(0, -3 + jumpTime * 3)
+	pass
 
 func _on_john_noise_finished() -> void:
 	playing = false

@@ -14,3 +14,8 @@ func _process(delta: float) -> void:
 func _on_texture_rect_gui_input(event: InputEvent) -> void:
 	if event.is_pressed():
 		play()
+
+
+func _on_finished() -> void:
+	hide()
+	pass # Replace with function body.

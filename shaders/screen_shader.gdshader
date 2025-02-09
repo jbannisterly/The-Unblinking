@@ -63,7 +63,7 @@ void fragment()
 	vec3 normal = 2.0 * texture(normal_buffer, SCREEN_UV).xyz - vec3(1.0);
 
 	vec2 depth_xy = texture(depth_buffer, SCREEN_UV).xy;
-	float depth = 1. / depth_xy.x * 2.;
+	float depth = 1. / depth_xy.x * 1.;
 
 	float modified_depth = depth * pow(1. - depth, 0.5);
 	float hue = clamp(pow(modified_depth, 2.), 0., 10.);
@@ -75,7 +75,9 @@ void fragment()
 
 	if (depth_xy.y == 1. && modified_depth > 0.2) {
 			ALBEDO=vec3(0.3);
-	} else {
+	} else if (depth_xy.y == 2.){
+			ALBEDO = color.rgb;
+	} else{
 		//if (depth > 0.) {
 			ALBEDO = colour;
 		//} else {
