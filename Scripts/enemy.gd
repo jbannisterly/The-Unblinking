@@ -1,4 +1,4 @@
-extends MeshInstance3D
+extends StaticBody3D
 
 var player: Node3D
 var totalDeltaTime = 0
