@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://2d0o2qsmug8n"
+path="res://.godot/imported/EnemyHead.obj-9d4c27e5585f56fc242ccfbc3fe7c428.mesh"
+
+[deps]
+
+files=["res://.godot/imported/EnemyHead.obj-9d4c27e5585f56fc242ccfbc3fe7c428.mesh"]
+
+source_file="res://Models/EnemyHead.obj"
+dest_files=["res://.godot/imported/EnemyHead.obj-9d4c27e5585f56fc242ccfbc3fe7c428.mesh", "res://.godot/imported/EnemyHead.obj-9d4c27e5585f56fc242ccfbc3fe7c428.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

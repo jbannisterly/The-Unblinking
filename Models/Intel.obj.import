@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://di5vcei7gf3ud"
+path="res://.godot/imported/Intel.obj-c83dd2ae14c556d2446829f2048e539d.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Intel.obj-c83dd2ae14c556d2446829f2048e539d.mesh"]
+
+source_file="res://Models/Intel.obj"
+dest_files=["res://.godot/imported/Intel.obj-c83dd2ae14c556d2446829f2048e539d.mesh", "res://.godot/imported/Intel.obj-c83dd2ae14c556d2446829f2048e539d.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

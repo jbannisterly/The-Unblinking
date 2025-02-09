@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dad2426qhsksy"
-path="res://.godot/imported/Intel.glb-f253a26e2618fb2c3c889f038b385b9e.scn"
+path="res://.godot/imported/Intel.glb-9f8d79cddb728d31d02fa4fe5d534e5a.scn"
 
 [deps]
 
-source_file="res://Intel.glb"
-dest_files=["res://.godot/imported/Intel.glb-f253a26e2618fb2c3c889f038b385b9e.scn"]
+source_file="res://Models/Intel.glb"
+dest_files=["res://.godot/imported/Intel.glb-9f8d79cddb728d31d02fa4fe5d534e5a.scn"]
 
 [params]
 
