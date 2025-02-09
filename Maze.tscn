@@ -68,9 +68,9 @@ speed = 10
 mouse_sense_y = 0.5
 
 [node name="Screen" type="Label" parent="Player"]
-offset_left = 712.0
+offset_left = 951.0
 offset_right = 1152.0
-offset_bottom = 72.0
+offset_bottom = 49.0
 
 [node name="Generator" type="Node3D" parent="."]
 script = ExtResource("6_xkupr")
@@ -102,6 +102,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("12_o8h4k")
+expand_mode = 2
 script = ExtResource("12_38h7f")
 
 [node name="John" type="StaticBody3D" parent="."]
