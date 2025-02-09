@@ -160,6 +160,17 @@ grow_vertical = 2
 texture = ExtResource("21_nxhg7")
 expand_mode = 2
 
+[node name="Time" type="Label" parent="WinScreen"]
+layout_mode = 0
+offset_left = 467.0
+offset_top = 354.0
+offset_right = 508.0
+offset_bottom = 377.0
+scale = Vector2(5, 5)
+text = "TIME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="finished" from="Cutscene" to="BackgroundNoise" method="_on_cutscene_finished"]
 [connection signal="finished" from="Cutscene" to="Player" method="_on_cutscene_finished"]
 [connection signal="finished" from="Cutscene" to="Cutscene" method="_on_finished"]

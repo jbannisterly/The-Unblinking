@@ -24,6 +24,7 @@ var required_score = 0;
 
 var gameOver = false
 var targetRotation = 0
+var time = 0.;
 
 func _process(delta: float) -> void:
 	if gameOver:
@@ -52,12 +53,16 @@ func _input(event):
 			look_y = clamp(look_y, -89, 89);
 
 func _physics_process(delta):
-	if Input.is_action_just_pressed("toggle_capture"):
-		toggle_capture();
+	#if Input.is_action_just_pressed("toggle_capture"):
+		#toggle_capture();
 	if Input.is_action_just_pressed("Escape"):
 		get_tree().quit();
 		
 	if can_start and not gameOver:
+		if can_start && !capture_mouse:
+			toggle_capture();
+			
+		time += delta;
 		var direction = Vector3.ZERO;
 	
 		rotation_degrees.y = look_x;
@@ -83,6 +88,12 @@ func _physics_process(delta):
 		var prevY = position.y;
 		move_and_slide();
 		position.y = prevY;
+		
+	if gameOver:
+		if capture_mouse:
+			toggle_capture();
+		if Input.is_mouse_button_pressed(1):
+			get_tree().reload_current_scene();
 		
 func add_to_required_score():
 	required_score += 1;

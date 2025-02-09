@@ -14,4 +14,7 @@ func _process(delta: float) -> void:
 		if body.is_in_group("Player"):
 			if (body.has_game_finished()):
 				winScreen.visible = true;
-				#print("Game Finished");
+				var minutes = body.time / 60.;
+				var seconds = fmod(body.time, 60.);
+				body.gameOver = true;
+				winScreen.get_child(1).text = "%.0f:%2.3f" % [minutes, seconds];
