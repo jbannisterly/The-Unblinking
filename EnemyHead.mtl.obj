@@ -1,6 +1,6 @@
 # Blender 4.3.2
 # www.blender.org
-mtllib EnemyHead.mtl
+mtllib EnemyHead.mtl.mtl
 o Head
 v -0.203622 2.791166 0.000047
 v -0.188122 2.682034 0.000047

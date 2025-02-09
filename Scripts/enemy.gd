@@ -32,7 +32,8 @@ func _process(delta: float) -> void:
 				position.y = 0;
 				if ((pos2D - playerPos2D).normalized().dot(playerFd)) < 0:
 					if floor(totalDeltaTime) < floor(totalDeltaTime + delta):
-						if (randf() > (1 - player.GetFractionGot())):
+						print(player.GetFractionGot())
+						if (randf() > min((1 - player.GetFractionGot() * 0.04), 0.9)):
 							moveBehind(playerFd)
 					totalDeltaTime += delta
 			else:
@@ -40,8 +41,8 @@ func _process(delta: float) -> void:
 				position.y = 0;
 
 func moveBehind(playerFd):
-	position = player.global_position + playerFd * -1.5
-	var targetRotation = atan2(playerFd.x, playerFd.z)
+	position = player.global_position + playerFd * 3
+	var targetRotation = atan2(playerFd.x, playerFd.z) * 180 / PI
 	if (playerFd.z > 0):
 		targetRotation += 180
 	rotation_degrees.y = targetRotation
