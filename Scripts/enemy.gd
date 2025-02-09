@@ -16,21 +16,24 @@ func _process(delta: float) -> void:
 	if (player == null):
 		player = get_node("../Player")
 	if (player != null):
+		var playerFd = Vector3(player.basis.z.x, 0, player.basis.z.z).normalized()
 		if position.distance_squared_to(player.position) > 3:
-			if (player.position - position).dot(player.basis.z) < 0:
+			if (player.position - position).dot(playerFd) < 0:
 				if floor(totalDeltaTime) < floor(totalDeltaTime + delta):
-					if randf() > 0.8:
-						moveBehind()
+					if randf() > 0.:
+						moveBehind(playerFd)
 				totalDeltaTime += delta
-		captureCheck()
+		captureCheck(playerFd)
+		position = player.position + playerFd * -2
+		position.y = 0;
 
-func moveBehind():
-	position = player.global_position + player.basis.z * 1.5
+func moveBehind(playerFd):
+	position = player.global_position + playerFd * 1.5
 	
-func captureCheck():
+func captureCheck(playerFd):
 	var distance2 = position.distance_squared_to(player.position)
 	if distance2 < 3:
-		if (player.position - position).dot(player.basis.z) > 0:
+		if (player.position - position).dot(playerFd) > 0:
 			if (noise == null):
 				noise = get_node("JohnNoise")
 			if (noise != null):

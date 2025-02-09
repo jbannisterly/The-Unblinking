@@ -86,9 +86,11 @@ script = ExtResource("13_o7gfk")
 stream = ExtResource("14_sxx3p")
 
 [node name="Body" type="MeshInstance3D" parent="John"]
+layers = 15
 mesh = ExtResource("15_0xjun")
 
 [node name="Head" type="MeshInstance3D" parent="John"]
+layers = 15
 mesh = ExtResource("16_mgbf4")
 
 [connection signal="finished" from="Cutscene" to="BackgroundNoise" method="_on_cutscene_finished"]
